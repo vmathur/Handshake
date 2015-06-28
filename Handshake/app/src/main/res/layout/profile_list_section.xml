@@ -29,13 +29,17 @@
             android:textSize="16sp"
             android:textColor="#4c4c4c"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"/>
 
         <TextView android:id="@+id/text2"
             android:textSize="14sp"
             android:textColor="#989898"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <TextView android:id="@+id/text3"

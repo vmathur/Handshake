@@ -32,7 +32,9 @@
             android:gravity="center_horizontal"
             android:textSize="14pt"
             android:text="Paula Barcante"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:ellipsize="end"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/profileTagLine"
@@ -41,7 +43,9 @@
             android:gravity="center_horizontal"
             android:textSize="10pt"
             android:text="Design Intern at Amazon"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:ellipsize="end"
+            android:singleLine="true"/>
     </LinearLayout>
 
 
