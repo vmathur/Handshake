@@ -112,7 +112,6 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -126,6 +125,8 @@ public class MainActivity extends ActionBarActivity {
             case R.id.addListLink:
                 return true;
             case R.id.profileLink:
+                return true;
+            case R.id.profileListSection:
                 FragmentTransaction ftrans = getFragmentManager().beginTransaction();
                 ftrans.add(R.id.fragment_container, new ProfileViewerFragment());
                 ftrans.commit();
