@@ -12,17 +12,18 @@ class ConnectionRegisterHandler(RequestHandler):
 		user_id = self.get_argument('user_id')
 		devices = self.get_argument('devices')
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
-		print devices
 		responses = []
 		devices = devices.split(',')
 		for device in devices:
 			print device
 			try:
-				response = con.search(term('1', 'bluetooth_address'))
-				print response
-				responses.append(response)
+				# response = con.search(term('1', 'bluetooth_address'))
+				response = con.search("<bluetooth_address>"+device+"</bluetooth_address>")
+				res = response.get_documents().items()[0][1]['profile']	
+				print res	
+				responses.append(res)
 			except pycps.APIError as e:
-				print 'there was an error'
-		
-		self.write(responses)
+				print 'none found'
+
+		self.write(json.dumps(responses))
 		self.finish()
