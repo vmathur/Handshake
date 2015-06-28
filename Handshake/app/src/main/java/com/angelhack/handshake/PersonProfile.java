@@ -10,6 +10,9 @@ public class PersonProfile {
     private String tag_line;
     private String linkedin_id;
     private String picture_url;
+    private String email;
+    private String phoneNumber;
+    private String location;
 
     public PersonProfile(String fn, String ln, String tl, String id, String purl) {
         this.first_name = fn;
@@ -17,6 +20,17 @@ public class PersonProfile {
         this.tag_line = tl;
         this.linkedin_id = id;
         this.picture_url = purl;
+    }
+
+    public PersonProfile(String fn, String ln, String tl, String id, String purl, String em, String pn, String loc) {
+        this.first_name = fn;
+        this.last_name = ln;
+        this.tag_line = tl;
+        this.linkedin_id = id;
+        this.picture_url = purl;
+        this.email = em;
+        this.phoneNumber = pn;
+        this.location = loc;
     }
 
     public String getFirst_name() {
@@ -28,10 +42,6 @@ public class PersonProfile {
     }
 
     public String getFullName() { return this.first_name + " " + this.last_name;}
-
-    public String getLinkedinURL() {
-        return "https://www.linkedin.com/profile/view?linkedin_id=" + this.linkedin_id;
-    }
 
     public String getLinkedin_id() {
         return this.linkedin_id;
@@ -45,4 +55,15 @@ public class PersonProfile {
         return this.picture_url;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }

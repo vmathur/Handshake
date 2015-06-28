@@ -4,10 +4,14 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.internal.view.menu.ActionMenuItemView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -15,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Context;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +28,14 @@ public class MainActivity extends ActionBarActivity {
     public final static String TAG  = "Log";
     private Toolbar tbar;
     private List<String> addresses = new ArrayList<String>();
+    private PersonProfile youSelfi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        youSelfi = new PersonProfile("first", "last", "title", "inid", "pic", "email", "phone", "location");
 
         this.tbar = (Toolbar)findViewById(R.id.toolbar);
 
@@ -126,6 +134,17 @@ public class MainActivity extends ActionBarActivity {
             case R.id.addListLink:
                 return true;
             case R.id.profileLink:
+                FragmentTransaction ftrans = getFragmentManager().beginTransaction();
+                ftrans.add(R.id.fragment_container, ProfileViewerFragment.create(youSelfi, true)).addToBackStack(null);
+                ftrans.commit();
+                return true;
+            case R.id.editProfile:
+                ((EditText)findViewById(R.id.phonenum)).setInputType(InputType.TYPE_CLASS_PHONE);
+                ((EditText)findViewById(R.id.email)).setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                ((EditText)findViewById(R.id.location)).setInputType(InputType.TYPE_CLASS_TEXT);
+                ((TextView)findViewById(R.id.add)).setVisibility(View.VISIBLE);
+                ((TextView)findViewById(R.id.delete)).setVisibility(View.VISIBLE);
+                ((ActionMenuItemView)findViewById(R.id.editProfile)).getItemData().setVisible(false);
                 return true;
             case android.R.id.home:
                 getSupportActionBar().setTitle("All");
