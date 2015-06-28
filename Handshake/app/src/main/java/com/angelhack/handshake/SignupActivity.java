@@ -1,6 +1,7 @@
 package com.angelhack.handshake;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -77,8 +78,7 @@ public class SignupActivity extends Activity {
             String picUrl = json.getString("pictureUrl");
 
             Log.d(TAG, "fName = " + fName + ", lName = " + lName + ", tagline = " + tagline + ", id = " + id + ", picUrl = " + picUrl);
-
-             me = new PersonProfile(fName, lName, tagline, id, picUrl);
+            me = new PersonProfile(fName, lName, tagline, id, picUrl, BluetoothAdapter.getDefaultAdapter().getAddress());
 
         } catch (JSONException e) {
             onApiError("Could not parse data");
@@ -87,7 +87,7 @@ public class SignupActivity extends Activity {
 
         Log.d(TAG, "HITTING API");
         HandshakeAPI api = HandshakeFactory.get();
-        api.signup(me.user_id, me.first_name, me.last_name, me.picture_url, me.tag_line, new Callback<Void>() {
+        api.signup(me.user_id, me.first_name, me.last_name, me.picture_url, me.tag_line, me.mac_address, new Callback<Void>() {
             @Override
             public void success(Void aVoid, Response response) {
                 Log.d(TAG, "SUCCESS HEROKU");

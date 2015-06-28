@@ -15,13 +15,14 @@ import retrofit.http.Path;
  */
 public interface HandshakeAPI {
 
-    @FormUrlEncoded 
+    @FormUrlEncoded
     @POST("/user/signup")
     void signup(@Field("user_id") String userId,
                 @Field("first_name") String fname,
                 @Field("last_name") String lname,
                 @Field("picture_url") String picUrl,
                 @Field("tag_line") String tagline,
+                @Field("bluetooth_address") String bluetoothAddress,
                 Callback<Void> cb);
 
     @GET("/user/{id}/connections")

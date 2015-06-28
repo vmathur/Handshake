@@ -10,13 +10,15 @@ public class PersonProfile {
     String last_name;
     String tag_line;
     String picture_url;
+    String mac_address;
 
-    public PersonProfile(String fn, String ln, String tl, String id, String purl) {
+    public PersonProfile(String fn, String ln, String tl, String id, String purl, String macAddress) {
         this.first_name = fn;
         this.last_name = ln;
         this.tag_line = tl;
         this.user_id = id;
         this.picture_url = purl;
+        this.mac_address = macAddress;
     }
 
     public PersonProfile() {
@@ -43,6 +45,10 @@ public class PersonProfile {
 
     public String getPicture_url() {
         return this.picture_url;
+    }
+
+    public String getMac_Address() {
+        return this.mac_address;
     }
 
 }

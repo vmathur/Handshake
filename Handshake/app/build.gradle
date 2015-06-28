@@ -32,6 +32,7 @@ dependencies {
     compile 'com.getpebble:pebblekit:3.0.0'
     compile project(':linkedin-sdk')
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
 repositories {
