@@ -3,11 +3,11 @@ from tornado.web import RequestHandler, Application, url
 import pycps
 import json
 
-class UserHandler(RequestHandler):
+class MultiUserHandler(RequestHandler):
 	def get(self, id):
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
 		try:
-			response = con.retrieve(id)
+			res = con.retrieve(id)
 		except pycps.APIError as e:
 			print(e)
 			if e.code == 2824:
@@ -15,13 +15,17 @@ class UserHandler(RequestHandler):
 			return
 
 		try:
-			if response.get_documents:
-				print("Found {0} documents: ".format(response.found))
-				user = response.get_documents().items()[0]
-
+			if res.get_documents:
+				print("Found {0} documents: ".format(res.found))
+				user = res.get_documents().items()[0]
 		except Exception as e:
 			print(e)
-			return
-		print user
-		self.write(json.dumps(user))
-		self.finish()
+
+		connections = user[1]['connections']
+
+		try:
+			response = con.lookup(connections, list={'title': 'yes', 'summary': 'no'})
+		except pycps.APIError as e:
+			print(e)
+
+		self.write(response)
