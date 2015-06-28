@@ -2,6 +2,8 @@ package com.angelhack.handshake;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +28,10 @@ public class ProfileViewerFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        getActivity().findViewById(R.id.toolbar).setBackgroundColor(0xFFFFFFFF);
+        ((Toolbar)getActivity().findViewById(R.id.toolbar)).setTitle("");
         getActivity().findViewById(R.id.toolbar).setElevation(0);
-        ((TextView)getActivity().findViewById(R.id.profileName)).setText("Paula Barcante");
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((TextView) getActivity().findViewById(R.id.profileName)).setText("Paula Barcante");
         ((TextView)getActivity().findViewById(R.id.profileTagLine)).setText("UX Designer at Amazon");
     }
 

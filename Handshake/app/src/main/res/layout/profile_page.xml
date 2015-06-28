@@ -45,56 +45,190 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
         android:background="#FFFFFF">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp"
             android:layout_width="match_parent"
-            android:layout_height="245dp"
-            android:gravity="center_horizontal"
-            android:background="#FFFFFF"
-            android:elevation="4dp">
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="Text"
-                android:textSize="20pt"
-                android:textColor="#000000"/>
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_action_communication_call"/>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:paddingTop="25dp"
-                android:paddingBottom="25dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
-                android:gravity="center_horizontal"
-                android:background="#FFFFFF"
-                android:elevation="4dp">
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Text"
-                    android:textSize="20pt"
-                    android:textColor="#000000"/>
+                    android:gravity="start"
+                    android:text="(408) 555 - 1234"
+                    android:textSize="8pt"
+                    android:textColor="#707070" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="Text"
-                    android:textSize="20pt"
-                    android:textColor="#000000"/>
+                    android:gravity="start"
+                    android:text="Mobile"
+                    android:textSize="6pt"
+                    android:textColor="#989898"/>
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_action_content_mail"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="thisisanemail@email.com"
+                    android:textSize="8pt"
+                    android:textColor="#707070" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="eMail"
+                    android:textSize="6pt"
+                    android:textColor="#989898"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@drawable/ic_action_maps_place"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Seattle, WA"
+                    android:textSize="8pt"
+                    android:textColor="#707070" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="Location"
+                    android:textSize="6pt"
+                    android:textColor="#989898"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:baselineAligned="true"
+        android:gravity="center_horizontal|bottom"
+        android:background="#FFFFFF"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:gravity="center_horizontal|bottom"
+            android:background="#FFFFFF"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingTop="10dp"
+                android:tint="#2196F3"
+                android:src="@drawable/ic_action_content_add"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD"
+                android:textSize="10pt"
+                android:textColor="#2196F3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:baselineAligned="true"
+            android:gravity="center_horizontal|bottom"
+            android:background="#FFFFFF"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:gravity="bottom"
+                android:tint="#2196F3"
+                android:src="@drawable/ic_action_content_clear"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:textSize="10pt"
+                android:textColor="#2196F3"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

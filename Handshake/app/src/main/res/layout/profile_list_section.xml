@@ -8,7 +8,8 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
     android:background="#FFFFFF"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:clickable="true">
 
     <ImageView android:id="@+id/image1"
         android:layout_width="40dp"
