@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.Toolbar android:id="@+id/profileHeader"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:gravity="center_horizontal"
+        android:background="#5E35B1"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp">
+
+            <ImageView
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="#123456"
+                android:contentDescription="profile picture"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Text"
+                android:textSize="20pt"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+</LinearLayout>

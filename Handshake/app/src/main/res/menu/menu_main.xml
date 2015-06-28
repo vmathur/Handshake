@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.angelhack.handshake.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item android:id="@+id/addListLink"
+        android:icon="@drawable/ic_action_action_receipt"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
+    <item android:id="@+id/profileLink"
+        android:icon="@drawable/ic_action_action_account_circle"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
 </menu>
