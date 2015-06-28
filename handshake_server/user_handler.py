@@ -5,6 +5,7 @@ import json
 
 class UserHandler(RequestHandler):
 	def get(self, id):
+		print id
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
 		try:
 			response = con.retrieve(id)
@@ -21,7 +22,6 @@ class UserHandler(RequestHandler):
 
 		except Exception as e:
 			print(e)
-			return
-		print user
+
 		self.write(json.dumps(user))
 		self.finish()
