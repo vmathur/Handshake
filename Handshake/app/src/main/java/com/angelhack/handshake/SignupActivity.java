@@ -1,6 +1,7 @@
 package com.angelhack.handshake;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -33,6 +34,7 @@ import retrofit.client.Response;
  */
 public class SignupActivity extends Activity {
 
+    public static PersonProfile ME;
     private static final String TAG = SignupActivity.class.getName();
 
     @Override
@@ -68,7 +70,6 @@ public class SignupActivity extends Activity {
 
     private void onApiSuccess(JSONObject json) {
         Log.d(TAG, json.toString());
-        PersonProfile me;
         try {
             String fName = json.getString("firstName");
             String lName = json.getString("lastName");
@@ -77,24 +78,31 @@ public class SignupActivity extends Activity {
             String picUrl = json.getString("pictureUrl");
 
             Log.d(TAG, "fName = " + fName + ", lName = " + lName + ", tagline = " + tagline + ", id = " + id + ", picUrl = " + picUrl);
-
-             me = new PersonProfile(fName, lName, tagline, id, picUrl);
+            ME = new PersonProfile(fName, lName, tagline, id, picUrl, BluetoothAdapter.getDefaultAdapter().getAddress());
 
         } catch (JSONException e) {
             onApiError("Could not parse data");
             return;
         }
 
+        Log.d(TAG, "HITTING API");
         HandshakeAPI api = HandshakeFactory.get();
-        api.signup(me, new Callback<Void>() {
+        api.signup(ME.user_id, ME.first_name, ME.last_name, ME.picture_url, ME.tag_line, ME.mac_address, new Callback<Void>() {
             @Override
             public void success(Void aVoid, Response response) {
-                Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT);
+                Log.d(TAG, "SUCCESS HEROKU");
+                Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getApplicationContext(), "FAILED TO CREATE PROFILE", Toast.LENGTH_SHORT);
+                if (error != null && error.getResponse() != null) {
+                    Log.d(TAG, "FAILED HEROKU: " + error.getResponse().getStatus() + ", " + error.getResponse().getReason());
+                } else {
+                    Log.d(TAG, "Unknown error");
+                }
+                Toast.makeText(getApplicationContext(), "FAILED TO CREATE PROFILE", Toast.LENGTH_SHORT).show();
             }
         });
     }

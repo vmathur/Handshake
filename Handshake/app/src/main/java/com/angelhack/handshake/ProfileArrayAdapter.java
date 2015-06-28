@@ -66,7 +66,7 @@ public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> implements 
 
         DeepLinkHelper deepLinkHelper = DeepLinkHelper.getInstance();
 
-        deepLinkHelper.openOtherProfile((MainActivity) getContext(), ((PersonProfile)v.getTag()).getLinkedin_id(), new DeepLinkListener() {
+        deepLinkHelper.openOtherProfile((MainActivity) getContext(), ((PersonProfile)v.getTag()).getUser_id(), new DeepLinkListener() {
             @Override
             public void onDeepLinkSuccess() {
                 Log.d("SUCCESS", "went to profile");

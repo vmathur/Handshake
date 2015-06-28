@@ -19,13 +19,25 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Context;
+import android.widget.Toast;
 import android.widget.TextView;
 
+import com.getpebble.android.kit.PebbleKit;
+import com.getpebble.android.kit.util.PebbleDictionary;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends ActionBarActivity {
-    public final static String TAG  = "Log";
+
+    private static final int PEBBLE_KEY_TYPE = 1;
+    private static final int PEBBLE_KEY_CONTACTS = 2;
+    private static final String PEBBLE_TYPE_HANDSHAKE = "handshake";
+    private static final String PEBBLE_TYPE_CONTACTS = "contacts";
+
+
+    private static final UUID PEBBLE_APP_UUID = UUID.fromString("0456b648-c89d-4f90-898d-8cd87e1d78be");
+    public final static String TAG  = MainActivity.class.getName();
     private Toolbar tbar;
     private List<String> addresses = new ArrayList<String>();
     private PersonProfile youSelfi;
@@ -51,6 +63,51 @@ public class MainActivity extends ActionBarActivity {
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
         startActivity(discoverableIntent);
+
+        PebbleKit.registerReceivedDataHandler(this, new PebbleKit.PebbleDataReceiver(PEBBLE_APP_UUID) {
+            @Override
+            public void receiveData(final Context context, final int transactionId, final PebbleDictionary data) {
+                Log.i(getLocalClassName(), "Received value=" + data.getString(PEBBLE_KEY_TYPE) + " for key: 0");
+                Toast.makeText(getApplicationContext(), "Pebble sent: " + data.getString(0), Toast.LENGTH_SHORT).show();
+                PebbleKit.sendAckToPebble(getApplicationContext(), transactionId);
+            }
+        });
+
+        List<PersonProfile> profiles = new ArrayList<>();
+        PebbleDictionary dict = new PebbleDictionary();
+
+        for (int i = 0; i < 5; i++) {
+            profiles.add(new PersonProfile("Curtis", "Kroetsch", "Awesome guy", "curt" + i, "www.google.ca", BluetoothAdapter.getDefaultAdapter().getAddress()));
+        }
+
+        int index = 0;
+        for (PersonProfile profile : profiles) {
+            dict.addString(index, profile.getUser_id());
+            dict.addString(index+1, profile.getFullName());
+            dict.addString(index+2, profile.getTag_line());
+            index += 3;
+        }
+
+        PebbleKit.registerReceivedAckHandler(getApplicationContext(), new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
+
+            @Override
+            public void receiveAck(Context context, int transactionId) {
+                Log.i(getLocalClassName(), "Received ack for transaction " + transactionId);
+            }
+
+        });
+
+        PebbleKit.registerReceivedNackHandler(getApplicationContext(), new PebbleKit.PebbleNackReceiver(PEBBLE_APP_UUID) {
+
+            @Override
+            public void receiveNack(Context context, int transactionId) {
+                Log.i(getLocalClassName(), "Received nack for transaction " + transactionId);
+            }
+
+        });
+
+
+        PebbleKit.sendDataToPebble(this, PEBBLE_APP_UUID, dict);
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver(){

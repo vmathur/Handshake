@@ -46,7 +46,7 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
         bundle.putString(KEY_LOCATION, profile.getLocation());
         bundle.putString(KEY_TAG_LINE, profile.getTag_line());
         bundle.putString(KEY_PICTURE_URL, profile.getPicture_url());
-        bundle.putString(KEY_LINKEDIN_ID, profile.getLinkedin_id());
+        bundle.putString(KEY_LINKEDIN_ID, profile.getUser_id());
         bundle.putString(KEY_IS_SELF, (bool) ? "true" : "false");
 
         fragment.setArguments(bundle);
@@ -60,7 +60,7 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final Bundle args = getArguments();
-
+/*
         profile = new PersonProfile(args.getString(KEY_FIRST_NAME),
                                     args.getString(KEY_LAST_NAME),
                                     args.getString(KEY_TAG_LINE),
@@ -68,7 +68,8 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
                                     args.getString(KEY_PICTURE_URL),
                                     args.getString(KEY_EMAIL),
                                     args.getString(KEY_PHONE_NUMBER),
-                                    args.getString(KEY_LOCATION));
+                                    args.getString(KEY_LOCATION));*/
+        profile = SignupActivity.ME;
 
         String slf = args.getString(KEY_IS_SELF);
         if(slf.equals("true")) {

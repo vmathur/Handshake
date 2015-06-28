@@ -5,28 +5,35 @@ package com.angelhack.handshake;
  */
 public class PersonProfile {
 
-    private String first_name;
-    private String last_name;
-    private String tag_line;
-    private String linkedin_id;
-    private String picture_url;
-    private String email;
-    private String phoneNumber;
-    private String location;
+    String user_id;
+    String first_name;
+    String last_name;
+    String tag_line;
+    String picture_url;
+    String mac_address;
+    String email;
+    String phoneNumber;
+    String location;
 
-    public PersonProfile(String fn, String ln, String tl, String id, String purl) {
+
+    public PersonProfile(String fn, String ln, String tl, String id, String purl, String macAddress) {
         this.first_name = fn;
         this.last_name = ln;
         this.tag_line = tl;
-        this.linkedin_id = id;
+        this.user_id = id;
         this.picture_url = purl;
+        this.mac_address = macAddress;
+    }
+
+    public PersonProfile() {
+
     }
 
     public PersonProfile(String fn, String ln, String tl, String id, String purl, String em, String pn, String loc) {
         this.first_name = fn;
         this.last_name = ln;
         this.tag_line = tl;
-        this.linkedin_id = id;
+        this.user_id = id;
         this.picture_url = purl;
         this.email = em;
         this.phoneNumber = pn;
@@ -43,8 +50,8 @@ public class PersonProfile {
 
     public String getFullName() { return this.first_name + " " + this.last_name;}
 
-    public String getLinkedin_id() {
-        return this.linkedin_id;
+    public String getUser_id() {
+        return this.user_id;
     }
 
     public String getTag_line() {
@@ -53,6 +60,10 @@ public class PersonProfile {
 
     public String getPicture_url() {
         return this.picture_url;
+    }
+
+    public String getMac_Address() {
+        return this.mac_address;
     }
 
     public String getEmail() {
