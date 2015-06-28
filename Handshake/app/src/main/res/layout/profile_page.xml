@@ -7,28 +7,94 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingTop="25dp"
         android:paddingBottom="25dp"
         android:layout_width="match_parent"
-        android:layout_height="245dp"
+        android:layout_height="220dp"
         android:gravity="center_horizontal"
         android:background="#5E35B1"
         android:elevation="4dp">
 
         <ImageView
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:src="#123456"
             android:contentDescription="profile picture"
             android:layout_gravity="center_horizontal" />
 
         <TextView
+            android:id="@+id/profileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:paddingBottom="6dp"
+            android:gravity="center_horizontal"
+            android:textSize="14pt"
+            android:text="Paula Barcante"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/profileTagLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Text"
-            android:textSize="20pt"
+            android:textSize="10pt"
+            android:text="Design Intern at Amazon"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_horizontal"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="245dp"
+            android:gravity="center_horizontal"
+            android:background="#FFFFFF"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Text"
+                android:textSize="20pt"
+                android:textColor="#000000"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="245dp"
+                android:gravity="center_horizontal"
+                android:background="#FFFFFF"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Text"
+                    android:textSize="20pt"
+                    android:textColor="#000000"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Text"
+                    android:textSize="20pt"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
