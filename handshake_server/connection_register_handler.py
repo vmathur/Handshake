@@ -13,7 +13,9 @@ class ConnectionRegisterHandler(RequestHandler):
 		devices = self.get_argument('devices')
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
 		responses = []
-		devices = devices.split(',')
+		print devices
+		devices = devices.split('%2C+')
+		print devices
 		for device in devices:
 			print device
 			try:

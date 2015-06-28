@@ -17,7 +17,7 @@ class MultiUserHandler(RequestHandler):
 			if response.get_documents:
 				print("Found {0} documents: ".format(response.found))
 				user = response.get_documents().items()[0][1]
-				connections = user['connections'].split(',')
+				connections = user['connections'].split('%2C+')
 		except:
 			print 'fail'
 
