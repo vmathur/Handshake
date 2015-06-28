@@ -9,11 +9,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
-
+    public final static String TAG  = "Log";
     private Toolbar tbar;
+    private List<String> addresses = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,74 @@ public class MainActivity extends ActionBarActivity {
         FragmentTransaction ftrans = getFragmentManager().beginTransaction();
         ftrans.replace(R.id.fragment_container, new ProfileListFragment()).addToBackStack(null);
         ftrans.commit();
+
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+        startActivity(discoverableIntent);
+    }
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                String address = device.getAddress();
+                String name = device.getName();
+                int  rssi = intent.getShortExtra(BluetoothDevice.EXTRA_RSSI,Short.MIN_VALUE);
+                Log.d(TAG, "Address: " + address + " name = " + name + " RSSI: " + rssi);
+
+                //if(rssi > -80){
+                addresses.add(address);
+                //}
+
+            }
+        }
+    };
+
+    private final BroadcastReceiver loopReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                Log.d(TAG, "Discovery finished");
+                Log.d(TAG, "Devices: " + addresses.toString());
+                addresses.clear();
+
+                //delay
+                BluetoothAdapter.getDefaultAdapter().startDiscovery();
+            }
+
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter findFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter loopFilter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+
+        registerReceiver(receiver, findFilter);
+        registerReceiver(loopReceiver, loopFilter);
+
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        String address = bluetoothAdapter.getAddress();
+
+        Log.d(TAG, "Bluetooth Address is: " + address);
+
+        if (bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.cancelDiscovery();
+        }
+
+        boolean started = bluetoothAdapter.startDiscovery();
+        Log.d(TAG, started ? "STARTED" : "IDIOT");
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiver);
+        unregisterReceiver(loopReceiver);
+        super.onDestroy();
     }
 
     @Override

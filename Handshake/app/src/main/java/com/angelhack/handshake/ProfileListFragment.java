@@ -46,7 +46,7 @@ public class ProfileListFragment extends Fragment implements AdapterView.OnItemC
             f += i;
             l += i;
             tl = i + tl;
-            people[i] = new PersonProfile(f, l, tl, "id", "picurl", 0);
+            people[i] = new PersonProfile(f, l, tl, "id", "picurl");
         }
 
         pAdapter = new ProfileArrayAdapter(getActivity(), people);

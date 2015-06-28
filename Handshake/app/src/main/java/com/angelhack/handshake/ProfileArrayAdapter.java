@@ -46,7 +46,7 @@ public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> {
             }
 
             if (tt2 != null) {
-                tt2.setText(p.getTagline());
+                tt2.setText(p.getTag_line());
             }
         }
 

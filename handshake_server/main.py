@@ -1,10 +1,11 @@
 import pycps
+import os
 from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, Application, url
 from user_handler import UserHandler
 from user_sign_up_handler import UserSignUpHandler
-from session_handler import SessionHandler
 from multi_user_handler import MultiUserHandler
+# from connection_handler import ConnectionRegisterHandler
 
 class MainHandler(RequestHandler):
 	def get(self):
@@ -16,13 +17,14 @@ def make_app():
 		url(r"/user/([0-9]+)/profile", UserHandler),
 		url(r"/user/([0-9]+)/connections", MultiUserHandler),
 		url(r"/user/signup", UserSignUpHandler),
-		url(r"/session", SessionHandler),
+		# url(r"/connection/register", ConnectionRegisterHandler),
 	])
  
 def main():
 	app = make_app()
-	app.listen(3000)
+	port = int(os.environ.get("PORT", 3000))
+	app.listen(port)
 	IOLoop.current().start()
 
 if __name__ == '__main__':
-    main()
+	main()

@@ -5,50 +5,44 @@ package com.angelhack.handshake;
  */
 public class PersonProfile {
 
-    private String firstName;
-    private String lastName;
-    private String tagline;
-    private String linkedinID;
-    private String pictureURL;
-    private long dateMet;
+    private String first_name;
+    private String last_name;
+    private String tag_line;
+    private String linkedin_id;
+    private String picture_url;
 
-    public PersonProfile(String fn, String ln, String tl, String id, String purl, long dt) {
-        this.firstName = fn;
-        this.lastName = ln;
-        this.tagline = tl;
-        this.linkedinID = id;
-        this.pictureURL = purl;
-        this.dateMet = dt;
+    public PersonProfile(String fn, String ln, String tl, String id, String purl) {
+        this.first_name = fn;
+        this.last_name = ln;
+        this.tag_line = tl;
+        this.linkedin_id = id;
+        this.picture_url = purl;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getFirst_name() {
+        return this.first_name;
     }
 
-    public String getLastName() {
-        return this.lastName;
+    public String getLast_name() {
+        return this.last_name;
     }
 
-    public String getFullName() { return this.firstName + " " + this.lastName;}
+    public String getFullName() { return this.first_name + " " + this.last_name;}
 
     public String getLinkedinURL() {
-        return "https://www.linkedin.com/profile/view?id=" + this.linkedinID;
+        return "https://www.linkedin.com/profile/view?linkedin_id=" + this.linkedin_id;
     }
 
-    public String getLinkedinID() {
-        return this.linkedinID;
+    public String getLinkedin_id() {
+        return this.linkedin_id;
     }
 
-    public String getTagline() {
-        return this.tagline;
+    public String getTag_line() {
+        return this.tag_line;
     }
 
-    public String getPictureURL() {
-        return this.pictureURL;
-    }
-
-    public String getDateMet() {
-        return "convert to string: " + dateMet;
+    public String getPicture_url() {
+        return this.picture_url;
     }
 
 }
