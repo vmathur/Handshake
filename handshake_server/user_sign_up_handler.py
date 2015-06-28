@@ -14,7 +14,7 @@ class UserSignUpHandler(RequestHandler):
 		tag_line = self.get_argument('tag_line')
 		picture_url = self.get_argument('picture_url')
 		email = "hello@world.com"
-		connections = []
+		connections = ['1', '2']
 		user = {
 			user_id : {
 				'connections':connections,

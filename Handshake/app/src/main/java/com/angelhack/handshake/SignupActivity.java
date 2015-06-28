@@ -8,9 +8,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linkedin.platform.APIHelper;
@@ -42,7 +45,7 @@ public class SignupActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        Button button = (Button) findViewById(R.id.signin);
+        TextView button = (TextView) findViewById(R.id.signin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +53,12 @@ public class SignupActivity extends Activity {
                 onSignInClicked();
             }
         });
+
+        ImageView logo = (ImageView) findViewById(R.id.logo);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        logo.getLayoutParams().height = height - 375;
     }
 
     private void onSignInClicked() {

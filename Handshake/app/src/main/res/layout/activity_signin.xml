@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+    android:weightSum="1">
 
-    <Button
-        android:id="@+id/signin"
-        android:layout_gravity="center"
-        android:text="Sign in"
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="375dp"
+        android:layout_gravity="center"
+        android:src="@drawable/headshake"
+        android:paddingTop="72dp"
+        android:paddingBottom="73dp"/>
+
+    <TextView
+        android:id="@+id/signin"
+        android:src="@drawable/linkedinbtn"
+        android:text="Sign in with LinkedIn"
+        android:layout_height="100dp"
+        android:layout_width="fill_parent"
+        android:layout_gravity="bottom"
+        android:background="#1196F3"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="12pt"/>
 
 </LinearLayout>
