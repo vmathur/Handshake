@@ -129,6 +129,7 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case android.R.id.home:
                 getSupportActionBar().setTitle("All");
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getFragmentManager().popBackStack();
                 return true;
             default:

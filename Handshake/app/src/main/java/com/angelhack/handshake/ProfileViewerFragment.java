@@ -34,14 +34,14 @@ public class ProfileViewerFragment extends Fragment {
         ProfileViewerFragment fragment = new ProfileViewerFragment();
         Bundle bundle = new Bundle();
 
-        bundle.putString(KEY_FIRST_NAME, profile.getFirstName());
-        bundle.putString(KEY_LAST_NAME, profile.getLastName());
+        bundle.putString(KEY_FIRST_NAME, profile.getFirst_name());
+        bundle.putString(KEY_LAST_NAME, profile.getLast_name());
 //        bundle.putString(KEY_EMAIL, profile.getEmail());
 //        bundle.putString(KEY_PHONE_NUMBER, profile.getPhoneNumber());
 //        bundle.putString(KEY_LOCATION, profile.getLocation());
-        bundle.putString(KEY_TAG_LINE, profile.getTagline());
-        bundle.putString(KEY_PICTURE_URL, profile.getPictureURL());
-        bundle.putString(KEY_LINKEDIN_ID, profile.getLinkedinID());
+        bundle.putString(KEY_TAG_LINE, profile.getTag_line());
+        bundle.putString(KEY_PICTURE_URL, profile.getPicture_url());
+        bundle.putString(KEY_LINKEDIN_ID, profile.getLinkedin_id());
 
         fragment.setArguments(bundle);
         return fragment;
@@ -58,7 +58,7 @@ public class ProfileViewerFragment extends Fragment {
                                     args.getString(KEY_LAST_NAME),
                                     args.getString(KEY_TAG_LINE),
                                     args.getString(KEY_LINKEDIN_ID),
-                                    args.getString(KEY_PICTURE_URL), 0);
+                                    args.getString(KEY_PICTURE_URL));
     }
 
     @Override
@@ -85,7 +85,7 @@ public class ProfileViewerFragment extends Fragment {
 
         getActivity().findViewById(R.id.toolbar).setElevation(0);
         ((TextView)getActivity().findViewById(R.id.profileName)).setText(profile.getFullName());
-        ((TextView)getActivity().findViewById(R.id.profileTagLine)).setText(profile.getTagline());
+        ((TextView)getActivity().findViewById(R.id.profileTagLine)).setText(profile.getTag_line());
 //        ((TextView)getActivity().findViewById(R.id.phonenum)).setText(profile.getPhoneNumber());
 //        ((TextView)getActivity().findViewById(R.id.email)).setText(profile.getEmail());
 //        ((TextView)getActivity().findViewById(R.id.location)).setText(profile.location());
