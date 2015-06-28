@@ -5,12 +5,14 @@ import json
 
 class UserSignUpHandler(RequestHandler):
 	def post(self):
-		user_id = self.get_argument('user_id')
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
+
+		user_id = self.get_argument('user_id')
 		first_name = self.get_argument('first_name')
 		last_name = self.get_argument('last_name')
 		tag_line = self.get_argument('tag_line')
 		picture_url = self.get_argument('picture_url')
+		profile_url = self.get_argument('profile_url')
 		phone_number = "555-333-2222"
 		email = "hello@world.com"
 		connections = []
@@ -22,7 +24,7 @@ class UserSignUpHandler(RequestHandler):
 					'last_name':last_name, 
 					'tag_line':tag_line, 
 					'picture_url':picture_url,
-					'phone_number':phone_number,
+					'profile_url':profile_url,
 					'email':email
 				}
 			}
