@@ -85,8 +85,8 @@ public class SignupActivity extends Activity {
             return;
         }
 
-        HandshakeAPI api = HandshakeFactory.getHandshakeAPI();
-        api.createUser(me, new Callback<Void>() {
+        HandshakeAPI api = HandshakeFactory.get();
+        api.signup(me, new Callback<Void>() {
             @Override
             public void success(Void aVoid, Response response) {
                 Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT);
