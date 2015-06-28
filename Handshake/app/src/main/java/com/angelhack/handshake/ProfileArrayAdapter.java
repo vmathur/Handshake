@@ -2,6 +2,8 @@ package com.angelhack.handshake;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 /**
  * Created by AkhilBatra on 6/27/15.
  */
-public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> implements View.OnClickListener{
+public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> {
 
     public ProfileArrayAdapter(Context context, PersonProfile[] people) {
         super(context, 0, people);
@@ -32,14 +34,9 @@ public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> implements 
         PersonProfile p = getItem(position);
 
         if (p != null) {
-            LinearLayout ll1 = (LinearLayout) v.findViewById(R.id.profileListSection);
             ImageView img1 = (ImageView) v.findViewById(R.id.image1);
             TextView tt1 = (TextView) v.findViewById(R.id.text1);
             TextView tt2 = (TextView) v.findViewById(R.id.text2);
-
-            if(ll1 != null) {
-                ll1.setOnClickListener(this);
-            }
 
             if (img1 != null) {
             }
@@ -54,12 +51,5 @@ public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> implements 
         }
 
         return v;
-    }
-
-    @Override
-    public void onClick(View v) {
-        FragmentTransaction ftrans = ((MainActivity) getContext()).getFragmentManager().beginTransaction();
-        ftrans.add(R.id.fragment_container, new ProfileViewerFragment());
-        ftrans.commit();
     }
 }

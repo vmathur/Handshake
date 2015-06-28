@@ -1,18 +1,21 @@
 package com.angelhack.handshake;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
  * Created by AkhilBatra on 6/27/15.
  */
-public class ProfileListFragment extends Fragment {
+public class ProfileListFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView lview;
     private ProfileArrayAdapter pAdapter;
@@ -48,11 +51,20 @@ public class ProfileListFragment extends Fragment {
 
         pAdapter = new ProfileArrayAdapter(getActivity(), people);
         lview.setAdapter(pAdapter);
+
+        lview.setOnItemClickListener(this);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_profile, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        PersonProfile profile = people[position];
+        FragmentTransaction ftrans = getActivity().getFragmentManager().beginTransaction();
+        ftrans.add(R.id.fragment_container, ProfileViewerFragment.create(profile)).addToBackStack(null);
+        ftrans.commit();
+    }
 }

@@ -2,7 +2,9 @@ package com.angelhack.handshake;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
@@ -26,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setTitle("All");
 
         FragmentTransaction ftrans = getFragmentManager().beginTransaction();
-        ftrans.add(R.id.fragment_container, new ProfileListFragment());
+        ftrans.replace(R.id.fragment_container, new ProfileListFragment()).addToBackStack(null);
         ftrans.commit();
     }
 
@@ -48,10 +50,9 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case R.id.profileLink:
                 return true;
-            case R.id.profileListSection:
-                FragmentTransaction ftrans = getFragmentManager().beginTransaction();
-                ftrans.add(R.id.fragment_container, new ProfileViewerFragment());
-                ftrans.commit();
+            case android.R.id.home:
+                getSupportActionBar().setTitle("All");
+                getFragmentManager().popBackStack();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
