@@ -4,6 +4,10 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width=""
+        android:layout_height=""
+        android:src="@drawable/headshake"/>
     <Button
         android:id="@+id/signin"
         android:layout_gravity="center"
