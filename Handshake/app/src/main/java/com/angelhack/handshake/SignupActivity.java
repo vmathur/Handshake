@@ -24,6 +24,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * @author curtiskroetsch
@@ -63,23 +66,41 @@ public class SignupActivity extends Activity {
         }, true);
     }
 
-    private void showPackHask() {
+    private void onApiSuccess(JSONObject json) {
+        Log.d(TAG, json.toString());
+        PersonProfile me;
         try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.angelhack.handshake",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
+            String fName = json.getString("firstName");
+            String lName = json.getString("lastName");
+            String tagline = json.getString("headline");
+            String id = json.getString("id");
+            String picUrl = json.getString("pictureUrl");
 
-                Log.d(TAG, "packageName = " + info.packageName);
-                Log.d(TAG, "hashText = " + Base64.encodeToString(md.digest(), Base64.NO_WRAP));
-            }
-        } catch (PackageManager.NameNotFoundException e1) {
-            Log.d(TAG, e1.getMessage(), e1);
-        } catch (NoSuchAlgorithmException e2) {
-            Log.d(TAG, e2.getMessage(), e2);
+            Log.d(TAG, "fName = " + fName + ", lName = " + lName + ", tagline = " + tagline + ", id = " + id + ", picUrl = " + picUrl);
+
+             me = new PersonProfile(fName, lName, tagline, id, picUrl);
+
+        } catch (JSONException e) {
+            onApiError("Could not parse data");
+            return;
         }
+
+        HandshakeAPI api = HandshakeFactory.getHandshakeAPI();
+        api.createUser(me, new Callback<Void>() {
+            @Override
+            public void success(Void aVoid, Response response) {
+                Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(getApplicationContext(), "FAILED TO CREATE PROFILE", Toast.LENGTH_SHORT);
+            }
+        });
+    }
+
+    private void onApiError(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -89,41 +110,24 @@ public class SignupActivity extends Activity {
 
     private void setUpdateState() {
 
-        String url = "https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,picture-url)?format=json";
+        String url = "https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,picture-url,email-address)?format=json";
 
         APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
         apiHelper.getRequest(this, url, new ApiListener() {
             @Override
             public void onApiSuccess(ApiResponse apiResponse) {
-                JSONObject json = apiResponse.getResponseDataAsJson();
-                try {
-                    String fName = json.getString("firstName");
-                    String lName = json.getString("lastName");
-                    String tagline = json.getString("headline");
-                    String id = json.getString("id");
-                    String picUrl = json.getString("pictureUrl");
-
-                    Log.d(TAG, "fName = " + fName + ", lName = " + lName + ", tagline = " + tagline + ", id = " + id + ", picUrl = " + picUrl);
-
-                    PersonProfile me = new PersonProfile(fName, lName, tagline, id, picUrl);
-
-                } catch (JSONException e) {
-                    onApiError(new LIApiError("Could not parse", e));
-                }
-
-                Log.d(TAG, json.toString());
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                SignupActivity.this.onApiSuccess(apiResponse.getResponseDataAsJson());
             }
 
             @Override
             public void onApiError(LIApiError LIApiError) {
-                Toast.makeText(getApplicationContext(), "Get Profile Data failed", Toast.LENGTH_SHORT).show();
+                SignupActivity.this.onApiError("Could not grab user profile");
             }
         });
 
     }
 
     private static Scope buildScope() {
-        return Scope.build(Scope.R_BASICPROFILE, Scope.W_SHARE);
+        return Scope.build(Scope.R_BASICPROFILE, Scope.R_EMAILADDRESS);
     }
 }
