@@ -5,6 +5,7 @@ import json
 
 class MultiUserHandler(RequestHandler):
 	def get(self, user_id):
+		print 'hello'
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
 		connections = []
 		try:
@@ -23,10 +24,11 @@ class MultiUserHandler(RequestHandler):
 		profiles = []
 		for connection in connections:
 			try:
-				response = con.search(bluetooth_address, connection)
-				profiles.append(response)
+				response = con.search("<connections>"+connection+"</connections>")
+				res = response.get_documents().items()[0][1]['profile']	
+				profiles.append(res)
 			except pycps.APIError as e:
 				print(e)
 
-		self.write(profiles)
+		self.write(json.dumps(profiles))
 		self.finish()

@@ -16,8 +16,8 @@ class MainHandler(RequestHandler):
 def make_app():
 	return Application([
 		url(r"/", MainHandler),
-		url(r"/user/([0-9]+)/profile", UserHandler),
-		url(r"/user/([0-9]+)/connections", MultiUserHandler),
+		url(r"/user/(.*)/profile", UserHandler),
+		url(r"/user/(.*)/connections", MultiUserHandler),
 		url(r"/user/signup", UserSignUpHandler),
 		url(r"/connection/register", ConnectionRegisterHandler),
 		url(r"/connection/addition", ConnectionAdditionHandler),
