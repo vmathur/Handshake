@@ -14,12 +14,18 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Context;
+import android.widget.Toast;
 
+import com.getpebble.android.kit.PebbleKit;
+import com.getpebble.android.kit.util.PebbleDictionary;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends ActionBarActivity {
-    public final static String TAG  = "Log";
+
+    private static final UUID PEBBLE_APP_UUID = UUID.fromString("0456b648-c89d-4f90-898d-8cd87e1d78be");
+    public final static String TAG  = MainActivity.class.getName();
     private Toolbar tbar;
     private List<String> addresses = new ArrayList<String>();
 
@@ -42,6 +48,17 @@ public class MainActivity extends ActionBarActivity {
         Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
         discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
         startActivity(discoverableIntent);
+
+        PebbleKit.registerReceivedDataHandler(this, new PebbleKit.PebbleDataReceiver(PEBBLE_APP_UUID) {
+            @Override
+            public void receiveData(final Context context, final int transactionId, final PebbleDictionary data) {
+                Log.i(getLocalClassName(), "Received value=" + data.getString(0) + " for key: 0");
+                Toast.makeText(getApplicationContext(), "Pebble sent: " + data.getString(0), Toast.LENGTH_SHORT).show();
+                PebbleKit.sendAckToPebble(getApplicationContext(), transactionId);
+            }
+        });
+
+        
     }
 
     private final BroadcastReceiver receiver = new BroadcastReceiver(){

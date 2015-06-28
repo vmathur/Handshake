@@ -85,16 +85,24 @@ public class SignupActivity extends Activity {
             return;
         }
 
+        Log.d(TAG, "HITTING API");
         HandshakeAPI api = HandshakeFactory.get();
-        api.signup(me, new Callback<Void>() {
+        api.signup(me.user_id, me.first_name, me.last_name, me.picture_url, me.tag_line, new Callback<Void>() {
             @Override
             public void success(Void aVoid, Response response) {
-                Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT);
+                Log.d(TAG, "SUCCESS HEROKU");
+                Toast.makeText(getApplicationContext(), "SUCCESSFULLY CREATED PROFILE", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(getApplicationContext(), "FAILED TO CREATE PROFILE", Toast.LENGTH_SHORT);
+                if (error != null && error.getResponse() != null) {
+                    Log.d(TAG, "FAILED HEROKU: " + error.getResponse().getStatus() + ", " + error.getResponse().getReason());
+                } else {
+                    Log.d(TAG, "Unknown error");
+                }
+                Toast.makeText(getApplicationContext(), "FAILED TO CREATE PROFILE", Toast.LENGTH_SHORT).show();
             }
         });
     }

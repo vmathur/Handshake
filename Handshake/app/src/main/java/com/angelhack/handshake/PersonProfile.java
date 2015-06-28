@@ -5,18 +5,22 @@ package com.angelhack.handshake;
  */
 public class PersonProfile {
 
-    private String first_name;
-    private String last_name;
-    private String tag_line;
-    private String linkedin_id;
-    private String picture_url;
+    String user_id;
+    String first_name;
+    String last_name;
+    String tag_line;
+    String picture_url;
 
     public PersonProfile(String fn, String ln, String tl, String id, String purl) {
         this.first_name = fn;
         this.last_name = ln;
         this.tag_line = tl;
-        this.linkedin_id = id;
+        this.user_id = id;
         this.picture_url = purl;
+    }
+
+    public PersonProfile() {
+
     }
 
     public String getFirst_name() {
@@ -29,12 +33,8 @@ public class PersonProfile {
 
     public String getFullName() { return this.first_name + " " + this.last_name;}
 
-    public String getLinkedinURL() {
-        return "https://www.linkedin.com/profile/view?linkedin_id=" + this.linkedin_id;
-    }
-
-    public String getLinkedin_id() {
-        return this.linkedin_id;
+    public String getUser_id() {
+        return this.user_id;
     }
 
     public String getTag_line() {
