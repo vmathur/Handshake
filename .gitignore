@@ -1,2 +1,4 @@
-.idea/
-Handshake/linkedin-sdk/build/
+**/.DS_Store
+Handshake/.idea
+Handshake/linkedin-sdk/build
+**/build/
