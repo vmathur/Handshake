@@ -17,27 +17,31 @@ public class PersonProfile {
 
 
     public PersonProfile(String fn, String ln, String tl, String id, String purl, String macAddress) {
-        this.first_name = fn;
-        this.last_name = ln;
-        this.tag_line = tl;
-        this.user_id = id;
-        this.picture_url = purl;
-        this.mac_address = macAddress;
+        this.first_name = (fn != null && !fn.isEmpty()) ? fn : "FirstNm";
+        this.last_name = (ln != null && !ln.isEmpty()) ? ln : "LastAne";
+        this.tag_line = (tl != null && !tl.isEmpty()) ? tl : "Title";
+        this.user_id = (id != null && !id.isEmpty()) ? id : "You really messed up";
+        this.picture_url = (purl != null && !purl.isEmpty()) ? purl : "no image";
+        this.email = "email@email.email";
+        this.phoneNumber = "(555) 555 - 5555";
+        this.location = "Seattle, WA";
+        this.mac_address = (macAddress != null && !macAddress.isEmpty()) ? macAddress : "Da:rn:yo:uf:or:th:is";
     }
 
     public PersonProfile() {
 
     }
 
-    public PersonProfile(String fn, String ln, String tl, String id, String purl, String em, String pn, String loc) {
-        this.first_name = fn;
-        this.last_name = ln;
-        this.tag_line = tl;
-        this.user_id = id;
-        this.picture_url = purl;
-        this.email = em;
-        this.phoneNumber = pn;
-        this.location = loc;
+    public PersonProfile(String fn, String ln, String tl, String id, String purl, String macAddress, String em, String pn, String loc) {
+        this.first_name = (fn != null && !fn.isEmpty()) ? fn : "FirstNm";
+        this.last_name = (ln != null && !ln.isEmpty()) ? ln : "LastAne";
+        this.tag_line = (tl != null && !tl.isEmpty()) ? tl : "Title";
+        this.user_id = (id != null && !id.isEmpty()) ? id : "You really messed up";
+        this.picture_url = (purl != null && !purl.isEmpty()) ? purl : "no image";
+        this.email = (em != null && !em.isEmpty()) ? em : "email@email.email";
+        this.phoneNumber = (pn != null && !pn.isEmpty()) ? pn : "(555) 555 - 5555";
+        this.location = (loc != null && !loc.isEmpty()) ? loc : "Seattle, WA";
+        this.mac_address = (macAddress != null && !macAddress.isEmpty()) ? macAddress : "Da:rn:yo:uf:or:th:is";
     }
 
     public String getFirst_name() {

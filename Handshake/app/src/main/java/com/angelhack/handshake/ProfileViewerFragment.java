@@ -123,7 +123,10 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
         }
 
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.profilePic);
-        Picasso.with(getActivity()).load(profile.picture_url).into(imageView);
+        Picasso.with(getActivity())
+                .load(profile.picture_url)
+                .transform(new ImageTrans_CircleTransform())
+                .into(imageView);
     }
 
     @Override
@@ -143,6 +146,6 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
         ((EditText)getActivity().findViewById(R.id.location)).setInputType(InputType.TYPE_NULL);
         getActivity().findViewById(R.id.add).setVisibility(View.INVISIBLE);
         getActivity().findViewById(R.id.delete).setVisibility(View.INVISIBLE);
-        Log.d("Edit Profile Action Item", getActivity().findViewById(R.id.editProfile).toString());
+        Log.d("Edit Profile ActionItem", getActivity().findViewById(R.id.editProfile).toString());
     }
 }

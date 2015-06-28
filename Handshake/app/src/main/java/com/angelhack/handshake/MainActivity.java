@@ -67,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        youSelfi = new PersonProfile("first", "last", "title", "inid", "pic", "email", "phone", "location");
+        youSelfi = new PersonProfile("first", "last", "title", "inid", "pic", "macaddr" , "email", "phone", "location");
 
         this.tbar = (Toolbar)findViewById(R.id.toolbar);
 
