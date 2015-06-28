@@ -6,6 +6,7 @@ from user_handler import UserHandler
 from user_sign_up_handler import UserSignUpHandler
 from multi_user_handler import MultiUserHandler
 from connection_register_handler import ConnectionRegisterHandler
+from connection_addition_handler import ConnectionAdditionHandler
 
 class MainHandler(RequestHandler):
 	def get(self):
@@ -19,6 +20,7 @@ def make_app():
 		url(r"/user/([0-9]+)/connections", MultiUserHandler),
 		url(r"/user/signup", UserSignUpHandler),
 		url(r"/connection/register", ConnectionRegisterHandler),
+		url(r"/connection/addition", ConnectionAdditionHandler),
 	])
  
 def main():

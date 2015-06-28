@@ -2,32 +2,26 @@ from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, Application, url
 import pycps
 import json
+import time
+from tornado.ioloop import IOLoop
+from tornado.web import RequestHandler, asynchronous
+from tornado import gen
 
 class ConnectionRegisterHandler(RequestHandler):
 	def post(self):
 		user_id = self.get_argument('user_id')
 		devices = self.get_argument('devices')
-		session_db = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'sessions', 'vmmonkey@gmail.com', 'monkey', '100642')
+		print 'hello connection'
+		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
 
-		try:
-			response = session_db.retrieve(devices)
-		except pycps.APIError as e:
-			print(e)
-			if e.code == 2824:
-				print("Requested non-existing id(s): {0}".format(', '.join(e.document_id)))
-			return
+		responses = []
 
-		try:
-			if response.get_documents:
-				user_id = response.get_documents().items()[0]
-				session_db.delete(user_id)
-				self.write('success')
-				self.finish()
-			else:
-				session_db.insert({user_id : {
-						'devices' : devices
-					}
-				})
-				self.finish()
-		except pycps.APIError as e:
-			return
+		for device in devices:
+			try:
+				response = user_db.search(blueooth_address(device))
+				responses.append(response)
+			except pycps.APIError as e:
+				print 'test'
+		
+		self.write(responses)
+		self.finish()
