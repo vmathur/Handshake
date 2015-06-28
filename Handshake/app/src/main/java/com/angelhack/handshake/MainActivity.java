@@ -27,13 +27,23 @@ import com.getpebble.android.kit.util.PebbleDictionary;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class MainActivity extends ActionBarActivity {
 
     private static final int PEBBLE_KEY_TYPE = 1;
     private static final int PEBBLE_KEY_CONTACTS = 2;
+    private static final int PEBBLE_KEY_HANDSHAKE = 3;
+    private static final int PEBBLE_KEY_SELECTED = 4;
+
+
     private static final String PEBBLE_TYPE_HANDSHAKE = "handshake";
-    private static final String PEBBLE_TYPE_CONTACTS = "contacts";
+    private static final String PEBBLE_TYPE_SELECTED = "selected_";
+
+    private static String sSelectedId;
+    private static List<PersonProfile> sPeople = new ArrayList<>();
 
 
     private static final UUID PEBBLE_APP_UUID = UUID.fromString("0456b648-c89d-4f90-898d-8cd87e1d78be");
@@ -41,6 +51,16 @@ public class MainActivity extends ActionBarActivity {
     private Toolbar tbar;
     private List<String> addresses = new ArrayList<String>();
     private PersonProfile youSelfi;
+
+    private static PersonProfile findPerson(String id ) {
+        for (PersonProfile p : sPeople) {
+            if (p.user_id.equals(id)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +88,32 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void receiveData(final Context context, final int transactionId, final PebbleDictionary data) {
                 Log.i(getLocalClassName(), "Received value=" + data.getString(PEBBLE_KEY_TYPE) + " for key: 0");
-                Toast.makeText(getApplicationContext(), "Pebble sent: " + data.getString(0), Toast.LENGTH_SHORT).show();
+                String msg = data.getString(0);
+
+                if (PEBBLE_TYPE_HANDSHAKE.equals(msg)) {
+                    final PersonProfile profile = findPerson(sSelectedId);
+                    if (profile != null) {
+                        Toast.makeText(getApplicationContext(), "Handshook with " + profile.first_name, Toast.LENGTH_SHORT).show();
+                        // HANDLE HANDSHAKE
+                        HandshakeFactory.get().addition(SignupActivity.ME.user_id, sSelectedId, new Callback<Void>() {
+                            @Override
+                            public void success(Void aVoid, Response response) {
+                                Toast.makeText(getApplicationContext(), "Connected with " + profile.first_name, Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+                                Toast.makeText(getApplicationContext(), "Failed to connect with " + profile.first_name, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    sSelectedId = msg;
+
+                }
+
+
                 PebbleKit.sendAckToPebble(getApplicationContext(), transactionId);
             }
         });
@@ -136,10 +181,46 @@ public class MainActivity extends ActionBarActivity {
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                 Log.d(TAG, "Discovery finished");
                 Log.d(TAG, "Devices: " + addresses.toString());
+
+                if (addresses.isEmpty()) {
+                    BluetoothAdapter.getDefaultAdapter().startDiscovery();
+                    return;
+                }
+
+                StringBuilder builder = new StringBuilder();
+
+                if (addresses.size() > 1) {
+                    for (int i = 0; i < addresses.size() - 1; i++) {
+                        builder.append(addresses.get(i)).append(", ");
+                    }
+                }
+                builder.append(addresses.get(addresses.size() - 1));
+                String request = builder.toString();
+
+                HandshakeFactory.get().register(SignupActivity.ME.user_id, request, new Callback<List<PersonProfile>>() {
+                    @Override
+                    public void success(List<PersonProfile> aVoid, Response response) {
+                        Log.i(TAG, "Got profiles of devices");
+                        for (PersonProfile p : aVoid) {
+                            Log.d(TAG, "FOUND: " + p.getFullName());
+                            Toast.makeText(getApplicationContext(), "FOUND: " + p.getFullName(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Log.i(TAG, "FAILED getting profiles of devices");
+                        Toast.makeText(getApplicationContext(), "FAILED getting profiles of devices", Toast.LENGTH_SHORT).show();
+                        //BluetoothAdapter.getDefaultAdapter().startDiscovery();
+                    }
+                });
+
                 addresses.clear();
+                BluetoothAdapter.getDefaultAdapter().startDiscovery();
+
 
                 //delay
-                BluetoothAdapter.getDefaultAdapter().startDiscovery();
             }
 
         }

@@ -17,7 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by AkhilBatra on 6/27/15.
@@ -118,6 +121,9 @@ public class ProfileViewerFragment extends Fragment  implements View.OnClickList
             getActivity().findViewById(R.id.delete).setOnClickListener(this);
             getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         }
+
+        ImageView imageView = (ImageView) getActivity().findViewById(R.id.profilePic);
+        Picasso.with(getActivity()).load(profile.picture_url).into(imageView);
     }
 
     @Override

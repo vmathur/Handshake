@@ -17,6 +17,7 @@
         android:elevation="4dp">
 
         <ImageView
+            android:id="@+id/profilePic"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:src="#123456"

@@ -28,4 +28,11 @@ public interface HandshakeAPI {
     @GET("/user/{id}/connections")
     void getConnections(@Path("id") String id, Callback<List<PersonProfile>> cb);
 
+    @FormUrlEncoded
+    @POST("/connection/register")
+    void register(@Field("user_id") String userId, @Field("devices") String devices, Callback<List<PersonProfile>> cb);
+
+    @FormUrlEncoded
+    @POST("/connection/addition")
+    void addition(@Field("user_id") String userId, @Field("friend_id") String friendUrl, Callback<Void> cb);
 }

@@ -57,6 +57,7 @@ public class SignupActivity extends Activity {
             @Override
             public void onAuthSuccess() {
                 setUpdateState();
+                Log.d(TAG, "ADDRESS = " + BluetoothAdapter.getDefaultAdapter().getAddress());
                 Toast.makeText(getApplicationContext(), "success" + LISessionManager.getInstance(getApplicationContext()).getSession().getAccessToken().toString(), Toast.LENGTH_LONG).show();
             }
 
