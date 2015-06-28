@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.linkedin.platform.DeepLinkHelper;
 import com.linkedin.platform.errors.LIDeepLinkError;
 import com.linkedin.platform.listeners.DeepLinkListener;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by AkhilBatra on 6/27/15.
@@ -42,6 +43,10 @@ public class ProfileArrayAdapter extends ArrayAdapter<PersonProfile> implements 
             TextView tt3 = (TextView) v.findViewById(R.id.text3);
 
             if (img1 != null) {
+                Picasso.with(getContext())
+                        .load(p.picture_url)
+                        .transform(new ImageTrans_CircleTransform())
+                        .into(img1);
             }
 
             if (tt1 != null) {
