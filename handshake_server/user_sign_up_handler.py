@@ -2,12 +2,14 @@ from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, Application, url
 import pycps
 import json
+import logging
 
 class UserSignUpHandler(RequestHandler):
 	def post(self):
 		con = pycps.Connection('tcp://cloud-us-0.clusterpoint.com:9007', 'users', 'vmmonkey@gmail.com', 'monkey', '100642')
-
 		user_id = self.get_argument('user_id')
+		logging.info(user_id)
+		print user_id
 		first_name = self.get_argument('first_name')
 		last_name = self.get_argument('last_name')
 		tag_line = self.get_argument('tag_line')
