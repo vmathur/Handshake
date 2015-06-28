@@ -1,4 +1,4 @@
-
+import pycps
 from tornado.ioloop import IOLoop
 from tornado.web import RequestHandler, Application, url
 from user_handler import UserHandler
@@ -13,8 +13,9 @@ def make_app():
 		url(r"/", MainHandler),
 		url(r"/user/([0-9]+)", UserHandler),
 		url(r"/user/signup", UserSignUpHandler),
+		url(r"//([0-9]+)", UserHandler),
 	])
-
+ 
 def main():
 	app = make_app()
 	app.listen(3000)
