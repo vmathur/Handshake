@@ -6,6 +6,11 @@
         android:icon="@drawable/ic_action_action_receipt"
         android:orderInCategory="100"
         app:showAsAction="always" />
+    <item android:id="@+id/editProfile"
+        android:icon="@drawable/ic_action_content_create"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:visible="false"/>
     <item android:id="@+id/profileLink"
         android:icon="@drawable/ic_action_action_account_circle"
         android:orderInCategory="100"

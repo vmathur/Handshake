@@ -46,7 +46,7 @@ public class ProfileListFragment extends Fragment implements AdapterView.OnItemC
             f += i;
             l += i;
             tl = i + tl;
-            people[i] = new PersonProfile(f, l, tl, "id", "picurl");
+            people[i] = new PersonProfile(f, l, tl, "id", "picurl", null);
         }
 
         pAdapter = new ProfileArrayAdapter(getActivity(), people);
@@ -64,7 +64,7 @@ public class ProfileListFragment extends Fragment implements AdapterView.OnItemC
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         PersonProfile profile = people[position];
         FragmentTransaction ftrans = getActivity().getFragmentManager().beginTransaction();
-        ftrans.add(R.id.fragment_container, ProfileViewerFragment.create(profile)).addToBackStack(null);
+        ftrans.add(R.id.fragment_container, ProfileViewerFragment.create(profile, false)).addToBackStack(null);
         ftrans.commit();
     }
 }

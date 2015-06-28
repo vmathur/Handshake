@@ -72,14 +72,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/phonenum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="(408) 555 - 1234"
                     android:textSize="8pt"
-                    android:textColor="#707070" />
+                    android:textColor="#707070"
+                    android:inputType="none"
+                    android:editable="false"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -111,14 +113,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="thisisanemail@email.com"
                     android:textSize="8pt"
-                    android:textColor="#707070" />
+                    android:textColor="#707070"
+                    android:inputType="none"
+                    android:editable="false"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -149,14 +153,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:text="Seattle, WA"
                     android:textSize="8pt"
-                    android:textColor="#707070" />
+                    android:textColor="#707070"
+                    android:inputType="none"
+                    android:editable="false"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -193,11 +199,13 @@
             android:paddingBottom="16dp">
 
             <TextView
+                android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+ LIST"
+                android:text="SAVE"
                 android:textSize="10pt"
-                android:textColor="#2196F3"/>
+                android:textColor="#2196F3"
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <LinearLayout
@@ -213,11 +221,13 @@
             android:paddingBottom="16dp">
 
             <TextView
+                android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DELETE"
+                android:text="CANCEL"
                 android:textSize="10pt"
-                android:textColor="#2196F3"/>
+                android:textColor="#2196F3"
+                android:visibility="invisible"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

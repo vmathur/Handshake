@@ -11,6 +11,10 @@ public class PersonProfile {
     String tag_line;
     String picture_url;
     String mac_address;
+    String email;
+    String phoneNumber;
+    String location;
+
 
     public PersonProfile(String fn, String ln, String tl, String id, String purl, String macAddress) {
         this.first_name = fn;
@@ -23,6 +27,17 @@ public class PersonProfile {
 
     public PersonProfile() {
 
+    }
+
+    public PersonProfile(String fn, String ln, String tl, String id, String purl, String em, String pn, String loc) {
+        this.first_name = fn;
+        this.last_name = ln;
+        this.tag_line = tl;
+        this.user_id = id;
+        this.picture_url = purl;
+        this.email = em;
+        this.phoneNumber = pn;
+        this.location = loc;
     }
 
     public String getFirst_name() {
@@ -51,4 +66,15 @@ public class PersonProfile {
         return this.mac_address;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 }
