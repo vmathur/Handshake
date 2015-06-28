@@ -12,13 +12,12 @@ public class PersonProfile {
     private String pictureURL;
     private long dateMet;
 
-    public PersonProfile(String fn, String ln, String tl, String id, String purl, long dt) {
+    public PersonProfile(String fn, String ln, String tl, String id, String purl) {
         this.firstName = fn;
         this.lastName = ln;
         this.tagline = tl;
         this.linkedinID = id;
         this.pictureURL = purl;
-        this.dateMet = dt;
     }
 
     public String getFirstName() {
@@ -45,10 +44,6 @@ public class PersonProfile {
 
     public String getPictureURL() {
         return this.pictureURL;
-    }
-
-    public String getDateMet() {
-        return "convert to string: " + dateMet;
     }
 
 }

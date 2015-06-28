@@ -12,17 +12,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.linkedin.platform.APIHelper;
 import com.linkedin.platform.LISessionManager;
+import com.linkedin.platform.errors.LIApiError;
 import com.linkedin.platform.errors.LIAuthError;
+import com.linkedin.platform.listeners.ApiListener;
+import com.linkedin.platform.listeners.ApiResponse;
 import com.linkedin.platform.listeners.AuthListener;
 import com.linkedin.platform.utils.Scope;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author curtiskroetsch
  */
 public class SignupActivity extends Activity {
+
+    private static final String TAG = SignupActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +72,13 @@ public class SignupActivity extends Activity {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
 
-                Log.d("BLUE", "packageName = " + info.packageName);
-                Log.d("BLUE", "hashText = " + Base64.encodeToString(md.digest(), Base64.NO_WRAP));
+                Log.d(TAG, "packageName = " + info.packageName);
+                Log.d(TAG, "hashText = " + Base64.encodeToString(md.digest(), Base64.NO_WRAP));
             }
         } catch (PackageManager.NameNotFoundException e1) {
-            Log.d("SIGN", e1.getMessage(), e1);
+            Log.d(TAG, e1.getMessage(), e1);
         } catch (NoSuchAlgorithmException e2) {
-            Log.d("SIGN", e2.getMessage(), e2);
+            Log.d(TAG, e2.getMessage(), e2);
         }
     }
 
@@ -80,7 +88,39 @@ public class SignupActivity extends Activity {
     }
 
     private void setUpdateState() {
-        startActivity(new Intent(this, MainActivity.class));
+
+        String url = "https://api.linkedin.com/v1/people/~:(id,firstName,lastName,headline,picture-url)?format=json";
+
+        APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
+        apiHelper.getRequest(this, url, new ApiListener() {
+            @Override
+            public void onApiSuccess(ApiResponse apiResponse) {
+                JSONObject json = apiResponse.getResponseDataAsJson();
+                try {
+                    String fName = json.getString("firstName");
+                    String lName = json.getString("lastName");
+                    String tagline = json.getString("headline");
+                    String id = json.getString("id");
+                    String picUrl = json.getString("pictureUrl");
+
+                    Log.d(TAG, "fName = " + fName + ", lName = " + lName + ", tagline = " + tagline + ", id = " + id + ", picUrl = " + picUrl);
+
+                    PersonProfile me = new PersonProfile(fName, lName, tagline, id, picUrl);
+
+                } catch (JSONException e) {
+                    onApiError(new LIApiError("Could not parse", e));
+                }
+
+                Log.d(TAG, json.toString());
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+
+            @Override
+            public void onApiError(LIApiError LIApiError) {
+                Toast.makeText(getApplicationContext(), "Get Profile Data failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private static Scope buildScope() {
