@@ -18,9 +18,7 @@ public class ProfileViewerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        inflater.inflate(R.layout.profile_page, container, false);
-
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.profile_page, container, false);
     }
 
     @Override

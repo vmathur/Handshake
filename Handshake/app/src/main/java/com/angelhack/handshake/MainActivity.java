@@ -12,9 +12,6 @@ import android.widget.ListView;
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar tbar;
-    private ListView lview;
-    private ProfileArrayAdapter pAdapter;
-    private PersonProfile[] people;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,26 +19,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         this.tbar = (Toolbar)findViewById(R.id.toolbar);
-        this.lview = (ListView)findViewById(R.id.list);
 
         setSupportActionBar(tbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("All");
 
-        people = new PersonProfile[19];
-        String f = "First";
-        String l = "last";
-        String tl = "tagline";
-        for (int i = 0; i < 11; i++) {
-            f += i;
-            l += i;
-            tl = i + tl;
-            people[i] = new PersonProfile(f, l, tl, "id", "picurl", 0);
-        }
-
-        pAdapter = new ProfileArrayAdapter(this, people);
-        lview.setAdapter(pAdapter);
+        FragmentTransaction ftrans = getFragmentManager().beginTransaction();
+        ftrans.add(R.id.fragment_container, new ProfileListFragment());
+        ftrans.commit();
     }
 
     @Override
@@ -63,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             case R.id.profileLink:
                 FragmentTransaction ftrans = getFragmentManager().beginTransaction();
-                ftrans.add(R.id.profile, new ProfileViewerFragment());
+                ftrans.add(R.id.fragment_container, new ProfileViewerFragment());
                 ftrans.commit();
                 return true;
             default:
